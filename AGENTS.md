@@ -15,3 +15,7 @@ These are verified repository-local PuteraMY integration guides, not proof of in
 ## Premium animation workflow
 
 For user-facing motion work, read shared PuteraMY skills `motion-animation`, `gsap-scroll-storytelling`, `threejs-3d-experience`, `smooth-scroll`, and `animation-performance-qa` as relevant from `PuteraMY/PuteraMY-Agent-Skills/.agents/skills/<name>/SKILL.md`. Select only the techniques appropriate to the project's stack and goals; do not automatically install all animation libraries or combine competing animation engines. Respect reduced motion, mobile performance, accessibility, and regression tests. These are repository guides, not proof that third-party libraries or their complete upstream agent skills are installed. Keep production unchanged without approval.
+
+## Final curated premium skills (selective use)
+
+Shared skill guides now also include: `gsap-official-patterns`, `remotion-video-production`, `lottie-rive-animation`, `visual-regression-testing`, `core-web-vitals-seo`, `auth-authorization-hardening`, `cicd-quality-gates`, `3d-asset-optimization`, and `design-to-code-fidelity`. Fetch relevant `SKILL.md` files from `PuteraMY/PuteraMY-Agent-Skills/.agents/skills/` before corresponding tasks. Choose by stack and objective, not all at once. All nine are PuteraMY integration guides, not installed upstream binaries or complete vendor skills. For production changes, require approval; for completion, require executed tests and browser evidence.
