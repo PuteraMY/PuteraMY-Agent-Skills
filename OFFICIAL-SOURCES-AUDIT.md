@@ -53,3 +53,15 @@ The following four **entrypoint files** were fetched from both this repository a
 | `vercel-react-best-practices/SKILL.md` | `vercel-labs/agent-skills/skills/react-best-practices/SKILL.md` | YES |
 
 **Still unverified:** all supporting directories, third-party licenses across the full collection, complete Git tree inventory, Work plugin installation, and Codex runtime discovery. Never interpret this comparison as completion.
+
+## New user-requested upstream candidates — 12 November 2026
+
+These are **requested additions**, not installed or verified complete:
+
+| Candidate | Source | Verified observation | Next action |
+| --- | --- | --- | --- |
+| Cloudflare Security Audit | https://github.com/cloudflare/security-audit-skill | Original README accessible; documents `npx skills add https://github.com/cloudflare/security-audit-skill --skill security-audit` and an MIT license; repository root `SKILL.md` was not accessible by direct fetch | Locate complete upstream skill folder and required audit reference files, verify license and Codex support before copying/installing |
+| Anatomy | https://github.com/heresryan22/anatomy | Original GitHub README and guessed skill paths were not accessible in connected GitHub lookup | Verify repo existence, actual publisher and official installation instructions before adding; do not invent files |
+| Anti-slop | https://github.com/miqdadbadjuber/anti-slop | Original README accessible; advertises `npx skills add miqdadbadjuber/anti-slop` and Codex plugin commands `codex plugin marketplace add miqdadbadjuber/anti-slop`, then `codex plugin add antislop@anti-slop` | Verify original plugin manifest, six skill folders and required files; test Codex installation in target environment; Work installation remains separate and unverified |
+
+Security audit skills must be used only on explicitly authorized targets, with scoped non-destructive testing and no production deployment.
