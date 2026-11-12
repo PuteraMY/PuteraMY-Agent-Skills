@@ -12,7 +12,9 @@ Support every current and future PuteraMY project, including ATLAS AI, using **g
 4. Check whether the current execution environment actually discovers the skill or has the plugin/tool connected; report unverified status rather than assuming.
 5. Use relevant skills selectively, not all by default. Follow project-local instructions and run appropriate tests.
 
-ATLAS AI is the immediate contest priority, **not** the scope or endpoint of this shared toolkit. All verified integrations must remain reusable across future projects and technology stacks.\n\n## Current repository status
+ATLAS AI is the immediate contest priority, **not** the scope or endpoint of this shared toolkit. All verified integrations must remain reusable across future projects and technology stacks.
+
+## Current repository status
 
 Some files under `.agents/skills/` are verified **upstream SKILL.md entrypoint copies**, but their support files and functional installation have **not** all been verified. Other files are legacy assistant-authored integration guides and **must not be represented as official vendor skills**. See the audit for a non-exhaustive classification. Do not use unverified guides as proof of capability.
 
