@@ -69,3 +69,7 @@ Security audit skills must be used only on explicitly authorized targets, with s
 ## Cloudflare security-audit full vendor folder — 12 November 2026
 
 Copied the original upstream `skills/security-audit/` package from `cloudflare/security-audit-skill` into `.agents/skills/cloudflare-security-audit/`, including `SKILL.md`, 14 markdown support references, JSON report schema, two Node.js validators and their two test files, plus upstream root MIT `LICENSE`. These are original upstream files, not assistant-written wrappers. The previously listed Cloudflare entrypoint-only blocker is superseded by this package copy. **Still to verify:** exact file count/tree against upstream, execute validator tests in a suitable Node.js environment, and install/test agent discovery in the user's actual Codex environment. GitHub copy is not a ChatGPT Work plugin installation.
+
+## Vercel find-skills — 12 November 2026
+
+Added `.agents/skills/find-skills/SKILL.md` verbatim from `vercel-labs/skills/skills/find-skills/SKILL.md` (upstream blob SHA `a41bdd074bb587afd861332cf2f473f3154de4d7`). Source: https://github.com/vercel-labs/skills/tree/main/skills/find-skills. The upstream repository is the skills.sh CLI and documents Codex support. This is a **skill**, not proof of a ChatGPT Work plugin or a global Codex installation. The skill's discovery/install commands require a supported CLI runtime and should be tested in the target environment. Discovering skills does not establish that a discovered skill is safe; inspect provenance, license and contents before installation.
