@@ -40,3 +40,16 @@ References: https://learn.chatgpt.com/docs/build-skills and https://help.openai.
 3. Remove or archive assistant-authored guides only after validating replacements and checking AGENTS.md references.
 4. Test Codex discovery and relevant commands in a real Codex environment; verify Work plugin availability and account installation separately.
 5. Report unsupported/unavailable upstream plugins honestly. Do not declare 100% until the remaining list is empty and required tests have run.
+
+## Live upstream byte-for-byte checks — 12 November 2026
+
+The following four **entrypoint files** were fetched from both this repository and their upstream repositories and compared for exact text equality (matching Git blob SHA). This does **not** verify complete supporting files or runtime installation:
+
+| Local skill entrypoint | Upstream original | Exact match |
+| --- | --- | --- |
+| `frontend-design/SKILL.md` | `anthropics/skills/skills/frontend-design/SKILL.md` | YES |
+| `impeccable/SKILL.md` | `pbakaus/impeccable/plugin/skills/impeccable/SKILL.md` | YES |
+| `web-design-guidelines/SKILL.md` | `vercel-labs/agent-skills/skills/web-design-guidelines/SKILL.md` | YES |
+| `vercel-react-best-practices/SKILL.md` | `vercel-labs/agent-skills/skills/react-best-practices/SKILL.md` | YES |
+
+**Still unverified:** all supporting directories, third-party licenses across the full collection, complete Git tree inventory, Work plugin installation, and Codex runtime discovery. Never interpret this comparison as completion.
