@@ -65,3 +65,7 @@ These are **requested additions**, not installed or verified complete:
 | Anti-slop | https://github.com/miqdadbadjuber/anti-slop | Original README accessible; advertises `npx skills add miqdadbadjuber/anti-slop` and Codex plugin commands `codex plugin marketplace add miqdadbadjuber/anti-slop`, then `codex plugin add antislop@anti-slop` | Verify original plugin manifest, six skill folders and required files; test Codex installation in target environment; Work installation remains separate and unverified |
 
 Security audit skills must be used only on explicitly authorized targets, with scoped non-destructive testing and no production deployment.
+
+## Cloudflare security-audit full vendor folder — 12 November 2026
+
+Copied the original upstream `skills/security-audit/` package from `cloudflare/security-audit-skill` into `.agents/skills/cloudflare-security-audit/`, including `SKILL.md`, 14 markdown support references, JSON report schema, two Node.js validators and their two test files, plus upstream root MIT `LICENSE`. These are original upstream files, not assistant-written wrappers. The previously listed Cloudflare entrypoint-only blocker is superseded by this package copy. **Still to verify:** exact file count/tree against upstream, execute validator tests in a suitable Node.js environment, and install/test agent discovery in the user's actual Codex environment. GitHub copy is not a ChatGPT Work plugin installation.
