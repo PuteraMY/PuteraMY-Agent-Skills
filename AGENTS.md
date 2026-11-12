@@ -2,7 +2,7 @@
 
 ## Mission
 
-Support ATLAS AI and other projects using **genuine original upstream** skills, plugins and MCP integrations. **Do not write or substitute assistant-authored SKILL.md files for vendor packages.** The audit and verified upstream URLs are recorded in [OFFICIAL-SOURCES-AUDIT.md](OFFICIAL-SOURCES-AUDIT.md).
+Support every current and future PuteraMY project, including ATLAS AI, using **genuine original upstream** skills, plugins and MCP integrations. **Do not write or substitute assistant-authored SKILL.md files for vendor packages.** The audit and verified upstream URLs are recorded in [OFFICIAL-SOURCES-AUDIT.md](OFFICIAL-SOURCES-AUDIT.md).
 
 ## Before using any integration
 
@@ -12,7 +12,7 @@ Support ATLAS AI and other projects using **genuine original upstream** skills, 
 4. Check whether the current execution environment actually discovers the skill or has the plugin/tool connected; report unverified status rather than assuming.
 5. Use relevant skills selectively, not all by default. Follow project-local instructions and run appropriate tests.
 
-## Current repository status
+ATLAS AI is the immediate contest priority, **not** the scope or endpoint of this shared toolkit. All verified integrations must remain reusable across future projects and technology stacks.\n\n## Current repository status
 
 Some files under `.agents/skills/` are verified **upstream SKILL.md entrypoint copies**, but their support files and functional installation have **not** all been verified. Other files are legacy assistant-authored integration guides and **must not be represented as official vendor skills**. See the audit for a non-exhaustive classification. Do not use unverified guides as proof of capability.
 
