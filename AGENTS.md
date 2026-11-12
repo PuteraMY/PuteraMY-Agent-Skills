@@ -1,37 +1,29 @@
-# Agent Instructions
+# Agent Instructions — PuteraMY upstream-only policy
 
-Use the appropriate skill from `.agents/skills/<name>/SKILL.md` when relevant. Read the file before beginning work. Inspect existing code, minimize changes, run available tests, and report evidence and limitations. Never modify unrelated repositories, expose secrets, or deploy to production without explicit approval.
+## Mission
 
-## Premium UI/UX workflow
+Support ATLAS AI and other projects using **genuine original upstream** skills, plugins and MCP integrations. **Do not write or substitute assistant-authored SKILL.md files for vendor packages.** The audit and verified upstream URLs are recorded in [OFFICIAL-SOURCES-AUDIT.md](OFFICIAL-SOURCES-AUDIT.md).
 
-For every user-facing design or frontend task, read and apply `.agents/skills/ui-ux-pro-max/SKILL.md` from the shared PuteraMY-Agent-Skills repository together with `frontend-design` and `design-system`. This is the verified PuteraMY integration guide; the full upstream searchable data/scripts are not installed by this commit. Do not claim otherwise. Prioritize accessible, responsive, distinctive, well-tested product UI.
+## Before using any integration
 
-## Premium engineering quality gates (shared PuteraMY skills)
+1. Identify the **actual vendor distribution type**: skill, plugin, MCP server or ordinary software tool.
+2. Verify original source repository, license, complete files/scripts/data, supported installation instructions and required credentials.
+3. Use only the original vendor content for vendored skills. Do not mistake a copied entrypoint for a fully installed skill.
+4. Check whether the current execution environment actually discovers the skill or has the plugin/tool connected; report unverified status rather than assuming.
+5. Use relevant skills selectively, not all by default. Follow project-local instructions and run appropriate tests.
 
-Before related work, fetch and read these guides from `PuteraMY/PuteraMY-Agent-Skills/.agents/skills/`: `ui-ux-pro-max`, `web-design-guidelines`, `browser-qa`, `systematic-debugging`, and `verification-before-completion`. Use `react-performance` only when the project actually uses React/Next.js. Apply existing `frontend-design`, `design-system`, `security-audit`, `automated-testing`, and `deployment-qa` as applicable.
+## Current repository status
 
-These are verified repository-local PuteraMY integration guides, not proof of installation of third-party CLI assets, Playwright browser binaries, or the complete upstream skill datasets. For actual upstream installation, review the source and install in the target development environment; verify resulting files. Before marking work complete, report executed tests, visual QA evidence, known limitations and deployment status. Do not alter production without approval.
+Some files under `.agents/skills/` are verified **upstream SKILL.md entrypoint copies**, but their support files and functional installation have **not** all been verified. Other files are legacy assistant-authored integration guides and **must not be represented as official vendor skills**. See the audit for a non-exhaustive classification. Do not use unverified guides as proof of capability.
 
-## Premium animation workflow
+## ChatGPT Work and Codex
 
-For user-facing motion work, read shared PuteraMY skills `motion-animation`, `gsap-scroll-storytelling`, `threejs-3d-experience`, `smooth-scroll`, and `animation-performance-qa` as relevant from `PuteraMY/PuteraMY-Agent-Skills/.agents/skills/<name>/SKILL.md`. Select only the techniques appropriate to the project's stack and goals; do not automatically install all animation libraries or combine competing animation engines. Respect reduced motion, mobile performance, accessibility, and regression tests. These are repository guides, not proof that third-party libraries or their complete upstream agent skills are installed. Keep production unchanged without approval.
+Work plugin installation and Codex skill discovery are **separate**. GitHub files do not install Work plugins. A skill checked into this repository is not automatically available to Codex working in a different repository. Follow the vendor's actual supported installation method for each environment and test it there.
 
-## Final curated premium skills (selective use)
+## Quality and safety
 
-Shared skill guides now also include: `gsap-official-patterns`, `remotion-video-production`, `lottie-rive-animation`, `visual-regression-testing`, `core-web-vitals-seo`, `auth-authorization-hardening`, `cicd-quality-gates`, `3d-asset-optimization`, and `design-to-code-fidelity`. Fetch relevant `SKILL.md` files from `PuteraMY/PuteraMY-Agent-Skills/.agents/skills/` before corresponding tasks. Choose by stack and objective, not all at once. All nine are PuteraMY integration guides, not installed upstream binaries or complete vendor skills. For production changes, require approval; for completion, require executed tests and browser evidence.
+Inspect existing project code, preserve functionality, minimize changes, verify security/accessibility/performance where relevant, run available tests and report evidence plus limitations. Never expose secrets, make destructive changes or deploy to production without explicit approval. Never run intrusive security tests against unauthorized targets.
 
-## Curated design-craft guides (November 2026)
+## Migration completion rule
 
-For design-heavy work, selectively read the PuteraMY integration guides in `.agents/skills/`: `taste-skill` (anti-generic art direction), `impeccable` (systematic UI polish), `emil-skills` (interaction craft), `ux-ui-agent-skills` (design systems and accessibility), `apple-design-skill` (platform HIG review), `superdesign-skill` (concept exploration), and `ui-craft` (design-engineering quality review). Apply only those relevant to the project. These are original local integration notes that reference external repositories, not upstream skill installations or verified external commands. `ui-ux-pro-max` already exists; do not duplicate it. Inspect actual upstream docs and licenses before installing anything. For motion work, prioritize storyboard, timing, and sound direction before code; test final playback rather than trusting generated markup.
-
-## Browser, backend, security and documentation integrations (November 2026)
-
-Relevant locally authored guides: `playwright-testing` (official Playwright repository, use alongside `browser-qa`), `supabase-agent-plugin` (official Supabase community agent plugin; requires separate installation and authorization), `strix-security-audit` (authorized, scoped, non-destructive security assessment only), and `context7-documentation` (version-aware documentation; requires separate service connection). Existing `frontend-design` already covers the Anthropic frontend-design skill category; review the original https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md as an optional source, without claiming it is installed. All new files are PuteraMY integration guides, not actual upstream software installations. Use selectively and verify tool availability and test results. Never run security tests against unapproved targets or make production changes without approval.
-
-## Official Anthropic frontend-design skill
-
-The unmodified upstream Anthropic `frontend-design` skill is vendored at `.agents/skills/anthropic-frontend-design/SKILL.md`, with its Apache-2.0 `LICENSE.txt`, sourced from `https://github.com/anthropics/skills/tree/main/skills/frontend-design`. For design tasks, read this official skill alongside the existing PuteraMY `.agents/skills/frontend-design/SKILL.md` guide, and use the original skill's design-first critique process. This is a verified repository copy, not a globally installed CLI or plugin. Preserve both paths; do not conflate the local guide with the official source.
-
-## Upstream source-of-truth policy (November 2026)
-
-For any third-party skill, prefer the unmodified upstream `SKILL.md` and its original supporting files, with licensing and provenance checked. Do not replace vendor skills with summaries or invented integrations. The following files have been replaced with verbatim upstream `SKILL.md`: `.agents/skills/frontend-design/SKILL.md` (anthropics/skills), `.agents/skills/impeccable/SKILL.md` (pbakaus/impeccable), `.agents/skills/ui-ux-pro-max/SKILL.md` (nextlevelbuilder/ui-ux-pro-max-skill), `.agents/skills/web-design-guidelines/SKILL.md` (vercel-labs/agent-skills). `.agents/skills/vercel-react-best-practices/SKILL.md` is also copied verbatim from Vercel. IMPORTANT: upstream supporting scripts, data, references and rule files have NOT all been copied, so these are source-faithful entrypoints, NOT complete verified installations; resolve the missing dependencies before claiming fully operational. Other existing PuteraMY guides remain custom unless separately verified. This section supersedes earlier statements describing the replaced entrypoints as local original guides. Never make production changes without approval.
+Do not claim 100% complete until the complete repository tree has been inventoried, every retained skill has been verified against its full original upstream distribution and license, custom pseudo-skills have been resolved, and Work/Codex installations have been tested separately. Document blockers rather than inventing replacements.
