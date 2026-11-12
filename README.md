@@ -2,7 +2,7 @@
 
 **Status: IN PROGRESS. Not a fully installed plugin collection.**
 
-This repository is being migrated from assistant-authored guides to **original upstream skill/plugin/MCP distributions**. Its priority is supporting ATLAS AI development with ChatGPT Work and Codex. See [OFFICIAL-SOURCES-AUDIT.md](OFFICIAL-SOURCES-AUDIT.md) for source URLs, copied entrypoints, incomplete dependencies, and blockers.
+This repository is being migrated from assistant-authored guides to **original upstream skill/plugin/MCP distributions**. Its purpose is a reusable development toolkit for **all current and future PuteraMY projects**, across ChatGPT Work and Codex. ATLAS AI is the immediate contest priority, not the toolkit's scope. See [OFFICIAL-SOURCES-AUDIT.md](OFFICIAL-SOURCES-AUDIT.md) for source URLs, copied entrypoints, incomplete dependencies, and blockers.
 
 ## What works where
 
