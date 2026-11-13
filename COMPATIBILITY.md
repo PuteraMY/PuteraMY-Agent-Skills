@@ -55,3 +55,9 @@ Added [`.github/workflows/skills-audit.yml`](.github/workflows/skills-audit.yml)
 - Commit `1b64f85167622d9515a5d706be31907fd0186da1`: reject empty skill inventories and require actual nonempty `name`/`description` frontmatter fields rather than substring matches.
 - Commit `4a658c88eee4556aa78cdaa08bf77d88acb187cf`: add regression cases for zero skill directories, misleading keys and blank names.
 - These are **code changes only**; tests and GitHub Actions execution have not been observed in this run. The workflow still needs a successful execution and its `tracked-tree.txt` artifact reviewed. No Codex/Work installation, full vendor package, or complete inventory claim follows from these changes.
+
+## Evidence reliability fix — 13 November 2026, 22:00 MYT
+
+- Commit `66a1eaae2e22f031e487f11e15e1d35e73aa8cec` makes the tracked-tree export and structural inventory run with `if: always()` after regression tests. Previously a failing regression step prevented both evidence files from being generated, so the `always()` artifact upload had little diagnostic value. The workflow also responds to changes in this compatibility matrix and the source audit document.
+- **Not yet execution-verified**: the commit establishes workflow configuration only. Retrieve a completed GitHub Actions run and its `skills-structural-audit` artifact before claiming CI passed or the full tree was obtained. A failed structural validator still correctly fails the job, while preserving its JSON output for investigation.
+- Repository tree completeness, vendor package recursion, licenses, genuine plugin manifests, Codex installation and Work app usability remain unresolved. No legacy deletion or production deployment is authorized.
