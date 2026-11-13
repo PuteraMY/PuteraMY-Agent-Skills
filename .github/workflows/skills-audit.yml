@@ -6,6 +6,8 @@ on:
       - '.agents/skills/**'
       - 'scripts/validate_skills.py'
       - 'tests/test_validate_skills.py'
+      - 'COMPATIBILITY.md'
+      - 'OFFICIAL-SOURCES-AUDIT.md'
       - '.github/workflows/skills-audit.yml'
   pull_request:
     paths:
@@ -26,11 +28,13 @@ jobs:
       - name: Regression tests
         run: python -m unittest discover -s tests -p 'test_validate_skills.py' -v
       - name: Record complete tracked tree
+        if: always()
         run: |
           git ls-tree -r --name-only HEAD > tracked-tree.txt
           printf 'Tracked paths: '
           wc -l < tracked-tree.txt
       - name: Structural skill inventory
+        if: always()
         run: python scripts/validate_skills.py --json > structural-inventory.json
       - name: Upload audit evidence
         if: always()
