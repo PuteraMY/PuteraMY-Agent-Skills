@@ -1,0 +1,44 @@
+name: Skills structural audit
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.agents/skills/**'
+      - 'scripts/validate_skills.py'
+      - 'tests/test_validate_skills.py'
+      - '.github/workflows/skills-audit.yml'
+  pull_request:
+    paths:
+      - '.agents/skills/**'
+      - 'scripts/validate_skills.py'
+      - 'tests/test_validate_skills.py'
+      - '.github/workflows/skills-audit.yml'
+permissions:
+  contents: read
+jobs:
+  structural-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Regression tests
+        run: python -m unittest discover -s tests -p 'test_validate_skills.py' -v
+      - name: Record complete tracked tree
+        run: |
+          git ls-tree -r --name-only HEAD > tracked-tree.txt
+          printf 'Tracked paths: '
+          wc -l < tracked-tree.txt
+      - name: Structural skill inventory
+        run: python scripts/validate_skills.py --json > structural-inventory.json
+      - name: Upload audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: skills-structural-audit
+          path: |
+            tracked-tree.txt
+            structural-inventory.json
+          if-no-files-found: warn
+          retention-days: 30
