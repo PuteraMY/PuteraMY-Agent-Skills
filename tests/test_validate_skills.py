@@ -49,6 +49,29 @@ class ValidatorTests(unittest.TestCase):
         self.assertEqual(result["status"], "FAIL")
         self.assertEqual(len(result["failures"]), 1)
 
+    def test_empty_inventory_fails(self):
+        self.skill.rmdir()
+        proc, result = self.run_validator()
+        self.assertEqual(proc.returncode, 1)
+        self.assertEqual(result["status"], "FAIL")
+        self.assertIn("No skill directories", result["failures"][0])
+
+    def test_frontmatter_keys_must_be_actual_fields(self):
+        (self.skill / "SKILL.md").write_text(
+            "---\nnotname: fake\ndescription: Test\n---\n", encoding="utf-8"
+        )
+        proc, result = self.run_validator()
+        self.assertEqual(proc.returncode, 1)
+        self.assertEqual(result["status"], "FAIL")
+
+    def test_frontmatter_values_cannot_be_empty(self):
+        (self.skill / "SKILL.md").write_text(
+            "---\nname: \ndescription: Test\n---\n", encoding="utf-8"
+        )
+        proc, result = self.run_validator()
+        self.assertEqual(proc.returncode, 1)
+        self.assertEqual(result["status"], "FAIL")
+
     def test_missing_entrypoint_fails(self):
         (self.skill / "reference.md").write_text("support", encoding="utf-8")
         proc, result = self.run_validator()
