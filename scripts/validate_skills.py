@@ -3,6 +3,7 @@
 from __future__ import annotations
 import argparse
 import json
+import re
 from pathlib import Path
 import subprocess
 import sys
@@ -19,13 +20,18 @@ def main() -> int:
     folders = sorted(p for p in base.iterdir() if p.is_dir())
     rows = []
     failures = []
+    if not folders:
+        failures.append("No skill directories found; empty inventory is not a passing audit")
     for folder in folders:
         entry = folder / "SKILL.md"
         files = sorted(p.relative_to(folder).as_posix() for p in folder.rglob("*") if p.is_file())
         valid = False
         if entry.is_file():
             body = entry.read_text(encoding="utf-8-sig")
-            valid = body.startswith("---\n") and "\n---\n" in body[4:] and "name:" in body.split("---", 2)[1] and "description:" in body.split("---", 2)[1]
+            match = re.match(r"\A---\r?\n(.*?)\r?\n---(?:\r?\n|\Z)", body, flags=re.DOTALL)
+            if match:
+                header = match.group(1)
+                valid = all(re.search(rf"(?m)^{field}:\s*\S+", header) for field in ("name", "description"))
         if not valid:
             failures.append(f"{folder.name}: missing or malformed SKILL.md frontmatter")
         rows.append({"directory": folder.name, "entrypoint_valid": valid, "file_count": len(files), "files": files})
