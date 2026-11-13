@@ -49,3 +49,9 @@ See [OFFICIAL-SOURCES-AUDIT.md](OFFICIAL-SOURCES-AUDIT.md) for original source U
 ## CI evidence collection — 13 November 2026
 
 Added [`.github/workflows/skills-audit.yml`](.github/workflows/skills-audit.yml) in commit `836a0b16396e69c8c4de3b800b457fa3562b07c0`. It is a **read-only structural audit**: Python regression tests, complete tracked Git path export via `git ls-tree -r --name-only HEAD`, validator JSON output and downloadable workflow artifact. It does **not** certify full vendor distribution, plugin installation, MCP connectivity or Codex/Work runtime. The workflow's actual execution status and artifacts have **not yet been verified**; GitHub Actions permissions and execution may block it. The `git ls-tree` output is a tracked-tree snapshot, not a classification of every integration; audit the generated list before claiming complete inventory. The validator can fail on legacy folders; a failure must be investigated rather than hidden.
+
+## Structural validator hardening — 13 November 2026, 18:00 MYT
+
+- Commit `1b64f85167622d9515a5d706be31907fd0186da1`: reject empty skill inventories and require actual nonempty `name`/`description` frontmatter fields rather than substring matches.
+- Commit `4a658c88eee4556aa78cdaa08bf77d88acb187cf`: add regression cases for zero skill directories, misleading keys and blank names.
+- These are **code changes only**; tests and GitHub Actions execution have not been observed in this run. The workflow still needs a successful execution and its `tracked-tree.txt` artifact reviewed. No Codex/Work installation, full vendor package, or complete inventory claim follows from these changes.
