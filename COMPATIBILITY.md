@@ -61,3 +61,9 @@ Added [`.github/workflows/skills-audit.yml`](.github/workflows/skills-audit.yml)
 - Commit `66a1eaae2e22f031e487f11e15e1d35e73aa8cec` makes the tracked-tree export and structural inventory run with `if: always()` after regression tests. Previously a failing regression step prevented both evidence files from being generated, so the `always()` artifact upload had little diagnostic value. The workflow also responds to changes in this compatibility matrix and the source audit document.
 - **Not yet execution-verified**: the commit establishes workflow configuration only. Retrieve a completed GitHub Actions run and its `skills-structural-audit` artifact before claiming CI passed or the full tree was obtained. A failed structural validator still correctly fails the job, while preserving its JSON output for investigation.
 - Repository tree completeness, vendor package recursion, licenses, genuine plugin manifests, Codex installation and Work app usability remain unresolved. No legacy deletion or production deployment is authorized.
+
+## Audit evidence pinning — 14 November 2026
+
+- Commit `9638f2666416ac8e62924c2d062c00d7924ad471` adds `audited-commit.txt` to the GitHub Actions artifact. It records the exact checked-out Git commit associated with `tracked-tree.txt` and `structural-inventory.json`, so a downloaded inventory cannot silently be attributed to a later repository revision.
+- This change is **configuration-only evidence**. A completed workflow run, artifact download and file inspection are still required before claiming a complete inventory or passing CI. GitHub connector currently exposes known-file reads but not a recursive tree or a general workflow-run listing; local `git` checkout remains DNS-blocked.
+- The structural validator does not verify vendor support files, upstream licenses, plugin manifests or runtime installation. These must be assessed separately. No integration was promoted to L2–L5 by this commit.
