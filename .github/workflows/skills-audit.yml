@@ -33,6 +33,7 @@ jobs:
           git ls-tree -r --name-only HEAD > tracked-tree.txt
           printf 'Tracked paths: '
           wc -l < tracked-tree.txt
+          git rev-parse HEAD > audited-commit.txt
       - name: Structural skill inventory
         if: always()
         run: python scripts/validate_skills.py --json > structural-inventory.json
@@ -43,6 +44,7 @@ jobs:
           name: skills-structural-audit
           path: |
             tracked-tree.txt
+            audited-commit.txt
             structural-inventory.json
           if-no-files-found: warn
           retention-days: 30
