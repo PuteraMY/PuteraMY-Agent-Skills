@@ -31,7 +31,7 @@ def main() -> int:
             match = re.match(r"\A---\r?\n(.*?)\r?\n---(?:\r?\n|\Z)", body, flags=re.DOTALL)
             if match:
                 header = match.group(1)
-                valid = all(re.search(rf"(?m)^{field}:\s*\S+", header) for field in ("name", "description"))
+                valid = all(re.search(rf"(?m)^{field}:[ \t]*[^ \t\r\n#][^\r\n]*", header) for field in ("name", "description"))
         if not valid:
             failures.append(f"{folder.name}: missing or malformed SKILL.md frontmatter")
         rows.append({"directory": folder.name, "entrypoint_valid": valid, "file_count": len(files), "files": files})
