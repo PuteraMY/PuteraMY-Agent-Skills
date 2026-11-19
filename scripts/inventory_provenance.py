@@ -9,13 +9,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / ".agents" / "skills"
-FRONT = re.compile(r"\\A---\\r?\\n(.*?)\\r?\\n---(?:\\r?\\n|\\Z)", re.S)
-URL = re.compile(r"https?://[^\\s)<>\\]\"']+")
+FRONT = re.compile(r"\A---\r?\n(.*?)\r?\n---(?:\r?\n|\Z)", re.S)
+URL = re.compile(r"https?://[^\s)<>\]\"']+")
 FIELDS = ("name", "description")
 
 def tracked_paths():
     proc = subprocess.run(["git", "ls-files", "-z"], cwd=ROOT, capture_output=True, check=True)
-    return sorted(x for x in proc.stdout.decode("utf-8", "replace").split("\\0") if x)
+    return sorted(x for x in proc.stdout.decode("utf-8", "replace").split("\0") if x)
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
@@ -29,7 +29,7 @@ def main():
         entry = folder / "SKILL.md"
         body = entry.read_text(encoding="utf-8-sig") if entry.is_file() else ""
         match = FRONT.match(body)
-        valid = bool(match and all(re.search(rf"(?m)^{field}:[ \\t]*[^ \\t\\r\\n#][^\\r\\n]*", match.group(1)) for field in FIELDS))
+        valid = bool(match and all(re.search(rf"(?m)^{field}:[ \t]*[^ \t\r\n#][^\r\n]*", match.group(1)) for field in FIELDS))
         guide = bool(re.search(r"PuteraMY-authored|not a copy of the upstream|not an official|integration guide", body, re.I))
         rows.append({
             "directory": folder.name,
