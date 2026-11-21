@@ -6,6 +6,8 @@ on:
       - '.agents/skills/**'
       - 'scripts/validate_skills.py'
       - 'tests/test_validate_skills.py'
+      - 'tests/test_inventory_provenance.py'
+      - 'scripts/inventory_provenance.py'
       - 'COMPATIBILITY.md'
       - 'OFFICIAL-SOURCES-AUDIT.md'
       - '.github/workflows/skills-audit.yml'
@@ -14,6 +16,10 @@ on:
       - '.agents/skills/**'
       - 'scripts/validate_skills.py'
       - 'tests/test_validate_skills.py'
+      - 'tests/test_inventory_provenance.py'
+      - 'scripts/inventory_provenance.py'
+      - 'COMPATIBILITY.md'
+      - 'OFFICIAL-SOURCES-AUDIT.md'
       - '.github/workflows/skills-audit.yml'
 permissions:
   contents: read
@@ -26,7 +32,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Regression tests
-        run: python -m unittest discover -s tests -p 'test_validate_skills.py' -v
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Record complete tracked tree
         if: always()
         run: |
@@ -37,6 +43,9 @@ jobs:
       - name: Structural skill inventory
         if: always()
         run: python scripts/validate_skills.py --json > structural-inventory.json
+      - name: Non-destructive provenance inventory
+        if: always()
+        run: python scripts/inventory_provenance.py --json > provenance-inventory.json
       - name: Upload audit evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -46,5 +55,6 @@ jobs:
             tracked-tree.txt
             audited-commit.txt
             structural-inventory.json
+            provenance-inventory.json
           if-no-files-found: warn
           retention-days: 30
