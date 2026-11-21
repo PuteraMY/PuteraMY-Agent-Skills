@@ -5,9 +5,52 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python3 scripts/validate_skills.py
+      - name: Unit and regression tests
+        id: tests
+        continue-on-error: true
+        run: python3 -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Committed Git tree inventory
+        id: tree
+        continue-on-error: true
+        run: python3 scripts/inventory_git_tree.py --json > git-tree-inventory.json
+      - name: Structural inventory
+        id: structure
+        continue-on-error: true
+        run: python3 scripts/validate_skills.py --json > structural-inventory.json
+      - name: Provenance inventory
+        id: provenance
+        continue-on-error: true
+        run: python3 scripts/inventory_provenance.py > provenance-inventory.json
+      - name: Upload evidence even when validation fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent-skills-audit-evidence
+          path: |
+            git-tree-inventory.json
+            structural-inventory.json
+            provenance-inventory.json
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Enforce all checks
+        if: always()
+        env:
+          TESTS: ${{ steps.tests.outcome }}
+          TREE: ${{ steps.tree.outcome }}
+          STRUCTURE: ${{ steps.structure.outcome }}
+          PROVENANCE: ${{ steps.provenance.outcome }}
+        run: |
+          printf 'tests=%s tree=%s structure=%s provenance=%s\n' "$TESTS" "$TREE" "$STRUCTURE" "$PROVENANCE"
+          test "$TESTS" = success
+          test "$TREE" = success
+          test "$STRUCTURE" = success
+          test "$PROVENANCE" = success
