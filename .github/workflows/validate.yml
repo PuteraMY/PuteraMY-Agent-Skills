@@ -29,7 +29,7 @@ jobs:
       - name: Provenance inventory
         id: provenance
         continue-on-error: true
-        run: python3 scripts/inventory_provenance.py > provenance-inventory.json
+        run: python3 scripts/inventory_provenance.py --json > provenance-inventory.json
       - name: Upload evidence even when validation fails
         if: always()
         uses: actions/upload-artifact@v4
