@@ -46,6 +46,28 @@ jobs:
             integration-triage.json
           if-no-files-found: warn
           retention-days: 30
+      - name: Explain structural blockers
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          for filename in ("structural-inventory.json", "integration-triage.json"):
+              path = Path(filename)
+              if not path.exists():
+                  print(f"::error::{filename} was not produced")
+                  continue
+              data = json.loads(path.read_text())
+              if filename.startswith("structural"):
+                  for failure in data.get("failures", []):
+                      print(f"::error title=Structural blocker::{failure}")
+              else:
+                  for entry in data.get("entries", []):
+                      if entry.get("classification") != "skill_entrypoint_candidate":
+                          name = entry["directory"]
+                          kind = entry["classification"]
+                          print(f"::warning title=Unverified integration::{name}: {kind}; upstream and runtime remain unverified")
+          PY
       - name: Enforce all checks
         if: always()
         env:
