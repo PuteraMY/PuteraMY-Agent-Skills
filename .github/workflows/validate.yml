@@ -26,6 +26,10 @@ jobs:
         id: structure
         continue-on-error: true
         run: python3 scripts/validate_skills.py --json > structural-inventory.json
+      - name: Type-aware integration triage
+        id: triage
+        continue-on-error: true
+        run: python3 scripts/triage_integrations.py > integration-triage.json
       - name: Provenance inventory
         id: provenance
         continue-on-error: true
@@ -39,6 +43,7 @@ jobs:
             git-tree-inventory.json
             structural-inventory.json
             provenance-inventory.json
+            integration-triage.json
           if-no-files-found: warn
           retention-days: 30
       - name: Enforce all checks
@@ -48,9 +53,11 @@ jobs:
           TREE: ${{ steps.tree.outcome }}
           STRUCTURE: ${{ steps.structure.outcome }}
           PROVENANCE: ${{ steps.provenance.outcome }}
+          TRIAGE: ${{ steps.triage.outcome }}
         run: |
           printf 'tests=%s tree=%s structure=%s provenance=%s\n' "$TESTS" "$TREE" "$STRUCTURE" "$PROVENANCE"
           test "$TESTS" = success
           test "$TREE" = success
           test "$STRUCTURE" = success
           test "$PROVENANCE" = success
+          test "$TRIAGE" = success
