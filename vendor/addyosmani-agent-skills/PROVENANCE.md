@@ -11,7 +11,7 @@
 
 ## Evidence boundary
 
-This is a verbatim, pinned copy of a **standalone skill entrypoint**, with its original upstream license preserved. It is not a complete installation of the vendor's **plugin distribution**; the upstream repository also has `.codex-plugin/plugin.json`, `.claude-plugin/plugin.json`, and `plugin.json`. None of those manifests has been installed or claimed as functional by this copy.
+This is a verbatim, pinned copy of a **standalone skill entrypoint**, with its original upstream license preserved. It is not a complete installation of the vendor's **plugin distribution**; the upstream repository also has `.codex-plugin/plugin.json`, `.claude-plugin/plugin.json`, and `plugin.json`. The three original manifests are now preserved at their original relative paths in this vendor snapshot. However, the rest of the upstream plugin distribution (other skills, commands, evals and support files) has **not** been copied; the manifest references are therefore incomplete. **Do not install this partial snapshot as a plugin.** No plugin installation or runtime functionality is claimed.
 
 No runtime discovery was performed. **Codex installation: unverified. ChatGPT Work availability: unverified.** The source is not an MCP server or a connected ChatGPT app.
 
@@ -25,3 +25,11 @@ No runtime discovery was performed. **Codex installation: unverified. ChatGPT Wo
 6. Never infer ChatGPT Work connection from a repository file; inspect actual connected apps and their permissions.
 
 No project deployment, branch merge, or deletion is authorized by this provenance note.
+
+## Original manifest evidence (pinned upstream)
+
+- `.codex-plugin/plugin.json` blob `35323f5f6305f5d8f56844fcb26100b4ca12e326`
+- `.claude-plugin/plugin.json` blob `d04705d5bbc8c200e4d46c5c754403a1dca95c9d`
+- `plugin.json` blob `9825d67e5b89a9ac6ac2b0a996b84683a5f57efb`
+
+**Next:** obtain the complete pinned upstream tree, including all manifest-referenced paths, and verify integrity before considering plugin installation. Standalone skill files and plugin manifests must be evaluated independently.
