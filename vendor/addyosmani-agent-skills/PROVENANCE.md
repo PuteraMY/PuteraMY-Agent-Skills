@@ -50,3 +50,14 @@ All paths below were fetched from the same pinned upstream commit above and stor
 
 The pinned upstream Git tree was inspected for these four skill directories: security-and-hardening and performance-optimization each contain their listed reference file, while browser-testing-with-devtools and test-driven-development each contain only SKILL.md. These are **standalone skill directories**, not evidence of an installed plugin or MCP server. The vendor's full plugin distribution remains incomplete here. Codex and ChatGPT Work runtime discovery remain **UNVERIFIED**.
 
+
+## Accessibility engineering import — 2026-11-23
+
+The complete upstream `skills/accessibility-engineering/` directory at pinned commit `8c99fa36d90068c82d547f7c12a9d67a3e95f4ee` contains exactly these two files (verified against the untruncated upstream Git tree):
+
+| Original upstream path | Git blob SHA |
+| --- | --- |
+| `skills/accessibility-engineering/SKILL.md` | `eaaf72b3d89336232b33d01895bfafddaf74f39c` |
+| `skills/accessibility-engineering/scripts/audit-a11y.sh` | `1c9eb22863a4a74cb69ec667c36ac49e918ff3cc` |
+
+Both original files were copied into this vendor directory; the script is **not executed** and its external runtime dependencies are **not verified**. This is a standalone skill distribution, not proof of plugin, MCP, Codex or ChatGPT Work installation. Do not deploy or execute against production targets without authorization.
