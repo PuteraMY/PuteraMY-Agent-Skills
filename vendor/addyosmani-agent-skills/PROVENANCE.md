@@ -33,3 +33,20 @@ No project deployment, branch merge, or deletion is authorized by this provenanc
 - `plugin.json` blob `9825d67e5b89a9ac6ac2b0a996b84683a5f57efb`
 
 **Next:** obtain the complete pinned upstream tree, including all manifest-referenced paths, and verify integrity before considering plugin installation. Standalone skill files and plugin manifests must be evaluated independently.
+
+
+## Additional pinned upstream skills imported 2026-11-23
+
+All paths below were fetched from the same pinned upstream commit above and stored verbatim under this vendor directory:
+
+| Original upstream path | Git blob SHA |
+| --- | --- |
+| `skills/security-and-hardening/SKILL.md` | `c714f94a5ca2a9e73429e66ef624ef09d48088df` |
+| `skills/security-and-hardening/references/hardening-patterns.md` | `34b65e524c48f878d4cdc4b93c73ea493506de76` |
+| `skills/browser-testing-with-devtools/SKILL.md` | `ca0044e859e5637c33250dbba1fc1a24540b7ad3` |
+| `skills/performance-optimization/SKILL.md` | `296cf3f79eaa4c910cae44ecd50fcc4246e2b9d5` |
+| `skills/performance-optimization/references/optimization-patterns.md` | `63e27bcc7a051c3dc23c164f146f374e119874cc` |
+| `skills/test-driven-development/SKILL.md` | `5dc0ae7e4ae4e4f6d60a6815f2643cda6ba3e99c` |
+
+The pinned upstream Git tree was inspected for these four skill directories: security-and-hardening and performance-optimization each contain their listed reference file, while browser-testing-with-devtools and test-driven-development each contain only SKILL.md. These are **standalone skill directories**, not evidence of an installed plugin or MCP server. The vendor's full plugin distribution remains incomplete here. Codex and ChatGPT Work runtime discovery remain **UNVERIFIED**.
+
