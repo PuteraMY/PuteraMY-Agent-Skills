@@ -20,6 +20,7 @@ def main() -> int:
     folders = sorted(p for p in base.iterdir() if p.is_dir())
     rows = []
     failures = []
+    local_guides = []
     if not folders:
         failures.append("No skill directories found; empty inventory is not a passing audit")
     for folder in folders:
@@ -32,15 +33,18 @@ def main() -> int:
             if match:
                 header = match.group(1)
                 valid = all(re.search(rf"(?m)^{field}:[ \t]*[^ \t\r\n#][^\r\n]*", header) for field in ("name", "description"))
+        is_guide = bool(re.search(r"PuteraMY-authored|locally authored|not a copy of the upstream|not an installed copy|integration guide|not an official", body if entry.is_file() else "", re.I))
+        if is_guide:
+            local_guides.append(folder.name)
         if not valid:
-            failures.append(f"{folder.name}: missing or malformed SKILL.md frontmatter")
-        rows.append({"directory": folder.name, "entrypoint_valid": valid, "file_count": len(files), "files": files})
+            failures.append(f"{folder.name}: local integration guide (not a vendor skill)" if is_guide else f"{folder.name}: missing or malformed SKILL.md frontmatter")
+        rows.append({"directory": folder.name, "entrypoint_valid": valid, "local_integration_guide": is_guide, "file_count": len(files), "files": files})
     try:
         tracked = subprocess.run(["git", "ls-files", "-z"], cwd=root, capture_output=True, check=True).stdout.decode("utf-8", errors="replace").split("\0")
         tracked = sorted(x for x in tracked if x)
     except (OSError, subprocess.CalledProcessError):
         tracked = None
-    result = {"status": "PASS" if not failures else "FAIL", "scope": "local structural checks only", "skills": rows, "tracked_file_count": len(tracked) if tracked is not None else None, "tracked_paths": tracked, "failures": failures, "upstream_verified": False, "codex_installed": False, "work_installed": False}
+    result = {"status": "PASS" if not failures else "FAIL", "scope": "local structural checks only", "skills": rows, "tracked_file_count": len(tracked) if tracked is not None else None, "tracked_paths": tracked, "failures": failures, "local_integration_guides": local_guides, "upstream_verified": False, "codex_installed": False, "work_installed": False}
     if args.json:
         print(json.dumps(result, indent=2, ensure_ascii=False))
     else:

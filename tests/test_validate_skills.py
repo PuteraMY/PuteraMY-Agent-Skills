@@ -79,5 +79,20 @@ class ValidatorTests(unittest.TestCase):
         self.assertEqual(result["skills"][0]["files"], ["reference.md"])
 
 
+    def test_local_guide_is_flagged_without_waiving_failure(self):
+        (self.skill / "SKILL.md").write_text(
+            "# Context7 MCP\nThis is a locally authored integration guide, not an installed copy.\n",
+            encoding="utf-8"
+        )
+        proc, result = self.run_validator()
+        self.assertEqual(proc.returncode, 1)
+        self.assertEqual(result["status"], "FAIL")
+        self.assertEqual(result["local_integration_guides"], ["example"])
+        self.assertTrue(result["skills"][0]["local_integration_guide"])
+        self.assertFalse(result["skills"][0]["entrypoint_valid"])
+        self.assertIn("local integration guide", result["failures"][0])
+        self.assertFalse(result["codex_installed"])
+        self.assertFalse(result["work_installed"])
+
 if __name__ == "__main__":
     unittest.main()

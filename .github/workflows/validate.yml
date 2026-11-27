@@ -5,9 +5,81 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python3 scripts/validate_skills.py
+      - name: Unit and regression tests
+        id: tests
+        continue-on-error: true
+        run: python3 -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Committed Git tree inventory
+        id: tree
+        continue-on-error: true
+        run: python3 scripts/inventory_git_tree.py --json > git-tree-inventory.json
+      - name: Structural inventory
+        id: structure
+        continue-on-error: true
+        run: python3 scripts/validate_skills.py --json > structural-inventory.json
+      - name: Type-aware integration triage
+        id: triage
+        continue-on-error: true
+        run: python3 scripts/triage_integrations.py > integration-triage.json
+      - name: Provenance inventory
+        id: provenance
+        continue-on-error: true
+        run: python3 scripts/inventory_provenance.py --json > provenance-inventory.json
+      - name: Upload evidence even when validation fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent-skills-audit-evidence
+          path: |
+            git-tree-inventory.json
+            structural-inventory.json
+            provenance-inventory.json
+            integration-triage.json
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Explain structural blockers
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          for filename in ("structural-inventory.json", "integration-triage.json"):
+              path = Path(filename)
+              if not path.exists():
+                  print(f"::error::{filename} was not produced")
+                  continue
+              data = json.loads(path.read_text())
+              if filename.startswith("structural"):
+                  for failure in data.get("failures", []):
+                      print(f"::error title=Structural blocker::{failure}")
+              else:
+                  for entry in data.get("entries", []):
+                      if entry.get("classification") != "skill_entrypoint_candidate":
+                          name = entry["directory"]
+                          kind = entry["classification"]
+                          print(f"::warning title=Unverified integration::{name}: {kind}; upstream and runtime remain unverified")
+          PY
+      - name: Enforce all checks
+        if: always()
+        env:
+          TESTS: ${{ steps.tests.outcome }}
+          TREE: ${{ steps.tree.outcome }}
+          STRUCTURE: ${{ steps.structure.outcome }}
+          PROVENANCE: ${{ steps.provenance.outcome }}
+          TRIAGE: ${{ steps.triage.outcome }}
+        run: |
+          printf 'tests=%s tree=%s structure=%s provenance=%s\n' "$TESTS" "$TREE" "$STRUCTURE" "$PROVENANCE"
+          test "$TESTS" = success
+          test "$TREE" = success
+          test "$STRUCTURE" = success
+          test "$PROVENANCE" = success
+          test "$TRIAGE" = success
